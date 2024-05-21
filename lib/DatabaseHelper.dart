@@ -30,7 +30,7 @@ class DatabaseHelper {
         // Callback executado quando o banco de dados é criado
         return db.execute(
           // Executa uma operação SQL
-          'CREATE TABLE tarefa(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT)', // Cria a tabela 'tasks'
+          'CREATE TABLE tarefa(id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, descricao TEXT)',
         );
       },
       version: 1, // Versão do banco de dados
@@ -41,14 +41,14 @@ class DatabaseHelper {
     // Método assíncrono para inserir uma tarefa no banco de dados
     final db = await database; // Obtém o banco de dados
     return await db.insert(
-        'tasks', tarefa.toMap()); // Insere a tarefa na tabela 'tasks'
+        'tarefa', tarefa.toMap()); // Insere a tarefa na tabela 'tasks'
   }
 
   Future<List<Tarefa>> fetchTasks() async {
     // Método assíncrono para buscar todas as tarefas do banco de dados
     final db = await database; // Obtém o banco de dados
     final List<Map<String, dynamic>> maps =
-        await db.query('tasks'); // Consulta todas as tarefas
+        await db.query('tarefa'); // Consulta todas as tarefas
     return List.generate(maps.length, (i) {
       // Gera uma lista de tarefas a partir dos resultados da consulta
       return Tarefa.fromMap(maps[i]); // Converte o mapa em um objeto Task
